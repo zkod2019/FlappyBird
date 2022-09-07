@@ -1,16 +1,22 @@
 var robot;
 var block = [];
 
+let img;
+
+function preload() {
+  img = loadImage("./robo.png");
+}
+
 function setup() {
   createCanvas(700, 500);
-  robot = new Robot();
+  robot = new Robot(img);
   block.push(new Block());
 }
 
 function draw() {
   background(0);
 
-  for (var i = block.length-1; i >= 0; i--) {
+  for (var i = block.length - 1; i >= 0; i--) {
     block[i].show();
     block[i].update();
 
@@ -19,7 +25,7 @@ function draw() {
     }
 
     if (block[i].offscreen()) {
-        block.splice(i, 1);
+      block.splice(i, 1);
     }
   }
 
@@ -32,7 +38,7 @@ function draw() {
 }
 
 function keyPressed() {
-  if (key == ' ') {
+  if (key == " ") {
     robot.up();
   }
 }
