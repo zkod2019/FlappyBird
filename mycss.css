@@ -1,0 +1,11 @@
+@import "//rsms.me/inter/inter.css";
+@import url("https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap");
+* {
+  font-family: "Arima Madurai", cursive;
+}
+
+
+.layout {
+  display: grid;
+  margin: 0 auto;
+}
