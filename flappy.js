@@ -2,7 +2,7 @@ var robot;
 var block = [];
 
 function setup() {
-  createCanvas(640, 480);
+  createCanvas(700, 500);
   robot = new Robot();
   block.push(new Block());
 }
@@ -27,7 +27,7 @@ function draw() {
   robot.show();
 
   if (frameCount % 75 == 0) {
-    block.push(new Pipe());
+    block.push(new Block());
   }
 }
 
