@@ -5,12 +5,13 @@ let img;
 
 function preload() {
   img = loadImage("./robo.png");
+  imgTools = loadImage("./tools.png");
 }
 
 function setup() {
   createCanvas(700, 500);
   robot = new Robot(img);
-  block.push(new Block());
+  block.push(new Block(imgTools));
 }
 
 function draw() {
@@ -33,7 +34,7 @@ function draw() {
   robot.show();
 
   if (frameCount % 75 == 0) {
-    block.push(new Block());
+    block.push(new Block(imgTools));
   }
 }
 

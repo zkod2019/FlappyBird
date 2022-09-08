@@ -1,4 +1,5 @@
-function Block() {
+function Block(imgTools) {
+    this.imgTools = imgTools;
     this.spacing = 175;
     this.top = random(height / 6, 3 / 4 * height);
     this.bottom = height - (this.top + this.spacing);
@@ -20,12 +21,17 @@ function Block() {
     }
   
     this.show = function() {
-      fill(255);
-      if (this.highlight) {
-        fill(255, 0, 0);
-      }
-      rect(this.x, 0, this.w, this.top);
-      rect(this.x, height - this.bottom, this.w, this.bottom);
+      /*
+        fill(255);
+        if (this.highlight) {
+          fill(255, 0, 0);
+        }
+        */
+      //imageTools(img, this.x, this.y, 32, 32);
+      image(imgTools, this.x, 0, this.w, this.top);
+      image(imgTools, this.x, height - this.bottom, this.w, this.bottom);
+      //rect(this.x, 0, this.w, this.top);
+     // rect(this.x, height - this.bottom, this.w, this.bottom);
     }
   
     this.update = function() {
