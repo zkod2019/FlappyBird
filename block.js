@@ -1,7 +1,7 @@
 function Block(imgTools) {
     this.imgTools = imgTools;
     this.spacing = 175;
-    this.top = random(height / 6, 3 / 4 * height);
+    this.top = random(height / 5, 3 / 5 * height);
     this.bottom = height - (this.top + this.spacing);
     this.x = width;
     this.w = 80;

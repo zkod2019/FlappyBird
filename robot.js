@@ -1,7 +1,7 @@
 function Robot(img) {
   this.img = img;
   this.y = height / 2;
-  this.x = 64;
+  this.x = 80;
 
   this.gravity = 0.7;
   this.lift = -12;
@@ -10,7 +10,9 @@ function Robot(img) {
   this.show = function () {
     // fill(255);
     // ellipse(this.x, this.y, 32, 32);
-    image(img, this.x, this.y, 32, 32);
+    // Top-left corner of the img is at (x, y)
+    // Width and height are 60x60
+    image(img, this.x, this.y, 60, 60);
   };
 
   this.up = function () {
