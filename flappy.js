@@ -3,6 +3,10 @@ var block = [];
 
 let img;
 
+let score = 0;
+
+const scoreEl = document.querySelector("#score");
+
 function preload() {
   img = loadImage("./robo.png");
   imgTools = loadImage("./tools.png");
@@ -22,7 +26,7 @@ function draw() {
     block[i].update();
 
     if (block[i].hits(robot)) {
-      console.log("HIT");
+      window.location = "/gameover.html";
     }
 
     if (block[i].offscreen()) {
@@ -34,6 +38,8 @@ function draw() {
   robot.show();
 
   if (frameCount % 75 == 0) {
+    score++;
+    scoreEl.innerHTML = `Score is: ${score}`;
     block.push(new Block(imgTools));
   }
 }
