@@ -1,16 +1,17 @@
-function Block(imgTools) {
+function Block(p, imgTools) {
+    this.p = p;
     this.imgTools = imgTools;
     this.spacing = 175;
-    this.top = random(height / 5, 3 / 5 * height);
-    this.bottom = height - (this.top + this.spacing);
-    this.x = width;
+    this.top = p.random(p.height / 5, 3 / 5 * p.height);
+    this.bottom = p.height - (this.top + this.spacing);
+    this.x = p.width;
     this.w = 80;
     this.speed = 6;
   
     this.highlight = false;
   
     this.hits = function(robot) {
-      if (robot.y < this.top || robot.y > height - this.bottom) {
+      if (robot.y < this.top || robot.y > this.p.height - this.bottom) {
         if (robot.x > this.x && robot.x < this.x + this.w) {
           this.highlight = true;
           return true;
@@ -21,15 +22,8 @@ function Block(imgTools) {
     }
   
     this.show = function() {
-      /*
-        fill(255);
-        if (this.highlight) {
-          fill(255, 0, 0);
-        }
-        */
-      //imageTools(img, this.x, this.y, 32, 32);
-      image(imgTools, this.x, 0, this.w, this.top);
-      image(imgTools, this.x, height - this.bottom, this.w, this.bottom);
+      this.p.image(imgTools, this.x, 0, this.w, this.top);
+      this.p.image(imgTools, this.x, this.p.height - this.bottom, this.w, this.bottom);
       //rect(this.x, 0, this.w, this.top);
      // rect(this.x, height - this.bottom, this.w, this.bottom);
     }

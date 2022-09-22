@@ -1,13 +1,10 @@
-import p5 from "p5";
-import { Magic } from "magic-sdk";
-
 const magic = new Magic("pk_live_B18C090502523AAF");
 
 /* 3️⃣ Implement Render Function */
 const render = async () => {
   let html = "";
 
-  if (window.location.pathname === "/callback") {
+  if (window.location.pathname === "/callback.html") {
     try {
       /* Complete the "authentication callback" */
       await magic.auth.loginWithCredential();
@@ -17,7 +14,7 @@ const render = async () => {
 
       html = `<h1>Current user: ${userMetadata.email}</h1><button onclick="handleLogout()">Logout</button>`;
     } catch {
-      window.location.href = window.location.origin;
+      window.location.pathname = "/game.html";
     }
   } else {
     const isLoggedIn = await magic.user.isLoggedIn();
@@ -35,17 +32,56 @@ const render = async () => {
         .addEventListener("click", handleLogout);
 
       let sketch = function (p) {
-        let x = 100;
-        let y = 100;
+        var robot;
+        var block = [];
+        
+        let img;
+        
+        let score = 0;
+        
+        const scoreEl = document.querySelector("#score");
+
+        p.keyPressed = function(key) {
+          if (p.key == " ") {
+            robot.up();
+          }
+        }        
+
+        p.preload = function () {
+          img = p.loadImage("./robo.png");
+          imgTools = p.loadImage("./tools.png");
+        };
 
         p.setup = function () {
-          p.createCanvas(700, 410);
+          p.createCanvas(700, 500);
+          robot = new Robot(p, img);
+          block.push(new Block(p, imgTools));
         };
 
         p.draw = function () {
           p.background(0);
-          p.fill(255);
-          p.rect(x, y, 50, 50);
+
+          for (var i = block.length - 1; i >= 0; i--) {
+            block[i].show();
+            block[i].update();
+        
+            if (block[i].hits(robot)) {
+              window.location = "/gameover.html";
+            }
+        
+            if (block[i].offscreen()) {
+              block.splice(i, 1);
+            }
+          }
+        
+          robot.update();
+          robot.show();
+        
+          if (p.frameCount % 75 == 0) {
+            score++;
+            scoreEl.innerHTML = `Score is: ${score}`;
+            block.push(new Block(p, imgTools));
+          }
         };
       };
 
@@ -71,7 +107,7 @@ const render = async () => {
 const handleLogin = async (e) => {
   e.preventDefault();
   const email = new FormData(e.target).get("email");
-  const redirectURI = `${window.location.origin}/callback`;
+  const redirectURI = `${window.location.origin}/callback.html`;
   if (email) {
     /* One-liner login 🤯 */
     await magic.auth.loginWithMagicLink({ email, redirectURI });
