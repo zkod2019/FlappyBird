@@ -1,11 +1,33 @@
 @import "//rsms.me/inter/inter.css";
 @import url("https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap");
+@font-face {
+  font-family: PressStart;
+  src: url(PressStart2P-Regular.ttf);
+}
 * {
-  font-family: "Arima Madurai", cursive;
+  font-family: PressStart;
 }
 
+body {
+  background-color: rgb(0, 0, 0);
+  color:  rgb(255, 255, 255);
+}
+
+p{}
 
 .layout {
   display: grid;
   margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.click{
+  text-transform: uppercase;
+  padding: 80px; 
+  background-color: rgb(0, 0, 0);
+  color: #ffffff; 
+  font-size: 90px;
 }
