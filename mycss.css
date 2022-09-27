@@ -1,9 +1,11 @@
 @import "//rsms.me/inter/inter.css";
 @import url("https://fonts.googleapis.com/css2?family=Arima+Madurai&display=swap");
+
 @font-face {
   font-family: PressStart;
   src: url(PressStart2P-Regular.ttf);
 }
+
 * {
   font-family: PressStart;
 }

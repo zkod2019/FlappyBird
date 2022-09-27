@@ -1,3 +1,64 @@
+let sketch = function (p) {
+  var robot;
+  var block = [];
+  
+  let img;
+  
+  let score = 0;
+  
+  const scoreEl = document.querySelector("#score");
+
+  p.keyPressed = function(key) {
+    if (p.key == " ") {
+      robot.up();
+    }
+  }        
+
+  p.preload = function () {
+    img = p.loadImage("./robo.png");
+    imgTools = p.loadImage("./tools.png");
+  };
+
+  p.setup = function () {
+    p.createCanvas(700, 500);
+    robot = new Robot(p, img);
+    block.push(new Block(p, imgTools));
+  };
+
+  p.draw = function () {
+    p.background(0);
+
+    for (var i = block.length - 1; i >= 0; i--) {
+      block[i].show();
+      block[i].update();
+  
+      if (block[i].hits(robot)) {
+        (async () => {
+          window.location = "/gameover.html";
+        })();
+        p.pause();
+      }
+  
+      if (block[i].offscreen()) {
+        block.splice(i, 1);
+      }
+    }
+  
+    robot.update();
+    robot.show();
+  
+    if (p.frameCount % 75 == 0) {
+      score++;
+      scoreEl.innerHTML = `Score is: ${score}`;
+      block.push(new Block(p, imgTools));
+    }
+  };
+};
+
+let myp5 = new p5(sketch);
+
+myp5.pause();
+
 const magic = new Magic("pk_live_B18C090502523AAF");
 
 /* 3️⃣ Implement Render Function */
@@ -31,61 +92,7 @@ const render = async () => {
         .querySelector("#logout-btn")
         .addEventListener("click", handleLogout);
 
-      let sketch = function (p) {
-        var robot;
-        var block = [];
-        
-        let img;
-        
-        let score = 0;
-        
-        const scoreEl = document.querySelector("#score");
-
-        p.keyPressed = function(key) {
-          if (p.key == " ") {
-            robot.up();
-          }
-        }        
-
-        p.preload = function () {
-          img = p.loadImage("./robo.png");
-          imgTools = p.loadImage("./tools.png");
-        };
-
-        p.setup = function () {
-          p.createCanvas(700, 500);
-          robot = new Robot(p, img);
-          block.push(new Block(p, imgTools));
-        };
-
-        p.draw = function () {
-          p.background(0);
-
-          for (var i = block.length - 1; i >= 0; i--) {
-            block[i].show();
-            block[i].update();
-        
-            if (block[i].hits(robot)) {
-              window.location = "/gameover.html";
-            }
-        
-            if (block[i].offscreen()) {
-              block.splice(i, 1);
-            }
-          }
-        
-          robot.update();
-          robot.show();
-        
-          if (p.frameCount % 75 == 0) {
-            score++;
-            scoreEl.innerHTML = `Score is: ${score}`;
-            block.push(new Block(p, imgTools));
-          }
-        };
-      };
-
-      let myp5 = new p5(sketch);
+      myp5.pause();
     } else {
       /* Show login form if user is not logged in */
       document.getElementById("app").innerHTML = `
